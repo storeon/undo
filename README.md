@@ -10,6 +10,8 @@ It is just 196 bytes module (it uses [Size Limit] to control the size) without a
 [Size Limit]: https://github.com/ai/size-limit
 [Storeon]: https://github.com/storeon/storeon
 
+![Example of use the undo/redo functionality](example.gif)
+
 ## Installation
 
 ```
@@ -25,7 +27,7 @@ import createStore from 'storeon'
 import undoable from '@storeon/undo'
 
 let counter = store => {
-  store.on('@init', () => ({ counter: 0, counter2: 0 }))
+  store.on('@init', () => ({ counter: 0 }))
 
   store.on('inc', (state) => ({ counter: state.counter + 1}))
   store.on('dec', (state) => ({ counter: state.counter - 1}))
@@ -50,17 +52,15 @@ const Counter = () => {
 }
 
 const UndoRedo = () => {
-  const { dispatch } = useStoreon('undoable')
+  const { dispatch } = useStoreon()
 
-  return <React.Fragment>
+  return <>
     <button onClick={() => dispatch('undo')}>Undo</button>
     <button onClick={() => dispatch('redo')}>Redo</button>
-
-  </React.Fragment>
+  </>
 }
 ```
 
-![Example of use the undo/redo functionality](example.gif)
 
 ## LICENSE
 
