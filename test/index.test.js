@@ -1,6 +1,9 @@
 var createStore = require('storeon')
 
-var undoable = require('../')
+var undo = require('../')
+var undoable = undo.undoable
+var UNDO = undo.UNDO
+var REDO = undo.REDO
 
 var store
 
@@ -38,7 +41,7 @@ it('undo should revert state from past', function () {
   store.dispatch('counter/add')
   store.dispatch('counter/add')
 
-  store.dispatch('undo')
+  store.dispatch(UNDO)
 
   expect(store.get()).toEqual({
     b: 1,
@@ -49,7 +52,7 @@ it('undo should revert state from past', function () {
     }
   })
 
-  store.dispatch('undo')
+  store.dispatch(UNDO)
   expect(store.get()).toEqual({
     b: 0,
     undoable: {
@@ -64,8 +67,8 @@ it('redo should revert state from the future', function () {
   store.dispatch('counter/add')
   store.dispatch('counter/add')
 
-  store.dispatch('undo')
-  store.dispatch('undo')
+  store.dispatch(UNDO)
+  store.dispatch(UNDO)
 
   expect(store.get()).toEqual({
     b: 0,
@@ -76,7 +79,7 @@ it('redo should revert state from the future', function () {
     }
   })
 
-  store.dispatch('redo')
+  store.dispatch(REDO)
 
   expect(store.get()).toEqual({
     b: 1,
@@ -87,7 +90,7 @@ it('redo should revert state from the future', function () {
     }
   })
 
-  store.dispatch('redo')
+  store.dispatch(REDO)
   expect(store.get()).toEqual({
     b: 2,
     undoable: {
@@ -102,8 +105,8 @@ it('redo should do nothing if future is empty', function () {
   store.dispatch('counter/add')
   store.dispatch('counter/add')
 
-  store.dispatch('undo')
-  store.dispatch('undo')
+  store.dispatch(UNDO)
+  store.dispatch(UNDO)
 
   expect(store.get()).toEqual({
     b: 0,
@@ -114,11 +117,11 @@ it('redo should do nothing if future is empty', function () {
     }
   })
 
-  store.dispatch('redo')
-  store.dispatch('redo')
-  store.dispatch('redo')
-  store.dispatch('redo')
-  store.dispatch('redo')
+  store.dispatch(REDO)
+  store.dispatch(REDO)
+  store.dispatch(REDO)
+  store.dispatch(REDO)
+  store.dispatch(REDO)
 
   expect(store.get()).toEqual({
     b: 2,
@@ -143,11 +146,11 @@ it('undo should do nothing if past is empty', function () {
     }
   })
 
-  store.dispatch('undo')
-  store.dispatch('undo')
-  store.dispatch('undo')
-  store.dispatch('undo')
-  store.dispatch('undo')
+  store.dispatch(UNDO)
+  store.dispatch(UNDO)
+  store.dispatch(UNDO)
+  store.dispatch(UNDO)
+  store.dispatch(UNDO)
 
   expect(store.get()).toEqual({
     b: 0,
