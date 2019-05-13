@@ -24,7 +24,7 @@ To using the undo/redo functionality you just need to add the `undoable` module 
 
 ```js
 import createStore from 'storeon'
-import undoable from '@storeon/undo'
+import { undoable, UNDO, REDO } from '@storeon/undo'
 
 let counter = store => {
   store.on('@init', () => ({ counter: 0 }))
@@ -55,8 +55,8 @@ const UndoRedo = () => {
   const { dispatch } = useStoreon()
 
   return <>
-    <button onClick={() => dispatch('undo')}>Undo</button>
-    <button onClick={() => dispatch('redo')}>Redo</button>
+    <button onClick={() => dispatch(UNDO)}>Undo</button>
+    <button onClick={() => dispatch(REDO)}>Redo</button>
   </>
 }
 ```

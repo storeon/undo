@@ -1,6 +1,9 @@
 /**
  * Storeon module to add undo and redo functionality
  */
+var UNDO = Symbol('undo')
+var REDO = Symbol('redo')
+
 var undoable = function (store) {
   var ignoreNext = false
   store.on('@init', function (state) {
@@ -37,7 +40,7 @@ var undoable = function (store) {
     }
   })
 
-  store.on('undo', function (state) {
+  store.on(UNDO, function (state) {
     ignoreNext = true
 
     var undo = state.undoable
@@ -55,7 +58,7 @@ var undoable = function (store) {
     return before
   })
 
-  store.on('redo', function (state) {
+  store.on(REDO, function (state) {
     ignoreNext = true
 
     var undo = state.undoable
@@ -75,4 +78,8 @@ var undoable = function (store) {
   })
 }
 
-module.exports = undoable
+module.exports = {
+  undoable: undoable,
+  UNDO: UNDO,
+  REDO: REDO
+}
