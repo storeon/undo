@@ -1,4 +1,4 @@
-# storeon-undo
+# Storeon undo
 
 <img src="https://storeon.github.io/storeon/logo.svg" align="right"
      alt="Storeon logo by Anton Lovchikov" width="160" height="142">
@@ -9,6 +9,18 @@ It is just 196 bytes module (it uses [Size Limit] to control the size) without a
 
 [Size Limit]: https://github.com/ai/size-limit
 [Storeon]: https://github.com/storeon/storeon
+
+```js
+import { undoable, UNDO, REDO } from '@storeon/undo'
+
+const store = createStore([
+  /* all your modules */
+  undoable
+ ])
+
+// now you can use UNDO and REDO with dispatch
+dispatch(UNDO)
+```
 
 ![Example of use the undo/redo functionality](example.gif)
 
@@ -61,6 +73,25 @@ const UndoRedo = () => {
 }
 ```
 
+If you need history only for some particular keys in state you can use `createHistory` function:
+
+```js
+import {createHistory} from './storeon-undo'
+
+// history will be collect only for key `a`
+const history = createHistory(['a'])
+const { UNDO, REDO } = history
+
+createStore([
+  /* all your modules */
+  history.module
+])
+
+// to change the history use the UNDO and REDO from `history` object
+dispatch(UNDO)
+```
+
+![Example of history only for specific key](example_history.gif)
 
 ## LICENSE
 
