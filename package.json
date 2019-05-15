@@ -6,11 +6,12 @@
   "author": "Ivan Menshykov <ivan.menshykov@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint *.js test/*.js",
+    "lint": "eslint *.js test/*.js test/demo/*.js",
     "size": "size-limit",
     "spell": "yarn docs && yaspeller *.md",
     "docs": "documentation build *.js -f md -o api.md",
-    "test": "jest --coverage && yarn lint && size-limit && yarn spell"
+    "test": "jest --coverage && yarn lint && size-limit && yarn spell",
+    "start": "parcel serve --cache-dir test/demo/.cache -d test/demo/dist test/demo/index.html --open"
   },
   "devDependencies": {
     "@logux/eslint-config": "^28.2.0",
@@ -40,7 +41,7 @@
   "size-limit": [
     {
       "path": "index.js",
-      "limit": "225 B"
+      "limit": "355 B"
     }
   ],
   "eslintConfig": {
@@ -59,7 +60,7 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint",
+    "*.js": ["jest --coverage", "yarn lint", "size-limit"],
     "*.md": "yaspeller"
   },
   "husky": {
@@ -73,7 +74,8 @@
     "dictionary": [
       "storeon",
       "Versioning",
-      "undoable"
+      "undoable",
+      "createHistory"
     ]
   }
 }
