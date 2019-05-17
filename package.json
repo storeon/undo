@@ -1,7 +1,7 @@
 {
   "name": "@storeon/undo",
   "version": "0.1.0",
-  "description": "Module for storeon to add undo and redo functionaly of the state",
+  "description": "Module for storeon which allows undoing or redoing the latest event",
   "repository": "storeon/undo",
   "author": "Ivan Menshykov <ivan.menshykov@gmail.com>",
   "license": "MIT",
