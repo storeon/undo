@@ -11,7 +11,7 @@ It is just 196 bytes module (it uses [Size Limit] to control the size) without a
 [Storeon]: https://github.com/storeon/storeon
 
 ```js
-import { undoable, UNDO, REDO } from '@storeon/undo'
+import { undoable, UNDO, REDO } from '@storeon/undo/full'
 
 const store = createStore([
   /* all your modules */
@@ -36,7 +36,7 @@ To using the undo/redo functionality you just need to add the `undoable` module 
 
 ```js
 import createStore from 'storeon'
-import { undoable, UNDO, REDO } from '@storeon/undo'
+import { undoable, UNDO, REDO } from '@storeon/undo/full'
 
 let counter = store => {
   store.on('@init', () => ({ counter: 0 }))
@@ -76,7 +76,7 @@ const UndoRedo = () => {
 If you need history only for some particular keys in state you can use `createHistory` function:
 
 ```js
-import {createHistory} from './storeon-undo'
+import {createHistory} from '@storeon/undo'
 
 // history will be collect only for key `a`
 const history = createHistory(['a'])

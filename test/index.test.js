@@ -1,9 +1,10 @@
 var createStore = require('storeon')
 
 var undo = require('../')
-var undoable = undo.undoable
-var UNDO = undo.UNDO
-var REDO = undo.REDO
+var full = require('../full')
+var undoable = full.undoable
+var UNDO = full.UNDO
+var REDO = full.REDO
 var createHistory = undo.createHistory
 
 var store
