@@ -3,7 +3,7 @@
 <img src="https://storeon.github.io/storeon/logo.svg" align="right"
      alt="Storeon logo by Anton Lovchikov" width="160" height="142">
 
-Tiny module for [Storeon] which allows undoing or redoing the latest event.
+Tiny module for [Storeon] which is adding undo functionality to your state. This means that now you can undoing or redoing the events in the state.
 
 It is just 196 bytes module (it uses [Size Limit] to control the size) without any dependencies.
 
