@@ -3,7 +3,7 @@
 <img src="https://storeon.github.io/storeon/logo.svg" align="right"
      alt="Storeon logo by Anton Lovchikov" width="160" height="142">
 
-Tiny module for [Storeon] to add `undo` and `redo` functionality.
+Tiny module for [Storeon] which is adding undo functionality to your state. This means that now you can undoing or redoing the events in the state.
 
 It is just 196 bytes module (it uses [Size Limit] to control the size) without any dependencies.
 
@@ -31,6 +31,14 @@ npm install @storeon/undo
 ```
 
 ## Usage
+
+You can use this module in two ways:
+
+- store history for all state
+- store history only for specific keys
+
+
+### Store history for all state
 
 To using the undo/redo functionality you just need to add the `undoable` module to `createStore`.
 
@@ -72,6 +80,8 @@ const UndoRedo = () => {
   </>
 }
 ```
+
+### Store history only for specific keys
 
 If you need history only for some particular keys in state you can use `createHistory` function:
 
