@@ -5,7 +5,12 @@
  */
 module.exports = {
   createHistory: function (paths) {
-    paths = paths || []
+    if (process.env.NODE_ENV === 'development') {
+      if (!paths) {
+        throw new Error(
+          'The paths parameter should be an array: createHistory([])')
+      }
+    }
 
     var undo = Symbol('undo')
     var redo = Symbol('redo')

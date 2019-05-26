@@ -30,6 +30,12 @@ beforeEach(function () {
   ])
 })
 
+it('should throw the error', function () {
+  expect(function () {
+    createHistory()
+  }).toThrow()
+})
+
 it('should create separeted history for key', function () {
   var history = createHistory(['a'])
 

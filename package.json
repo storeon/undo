@@ -8,9 +8,10 @@
   "scripts": {
     "lint": "eslint *.js test/*.js test/demo/*.js",
     "size": "size-limit",
+    "jest": "NODE_ENV=development jest --coverage",
     "spell": "yarn docs && yaspeller *.md",
     "docs": "documentation build *.js -f md -o api.md",
-    "test": "jest --coverage && yarn lint && size-limit && yarn spell",
+    "test": "yarn jest && yarn lint && size-limit && yarn spell",
     "start": "parcel serve --cache-dir test/demo/.cache -d test/demo/dist test/demo/index.html --open"
   },
   "devDependencies": {
@@ -41,11 +42,11 @@
   "size-limit": [
     {
       "path": "index.js",
-      "limit": "330 B"
+      "limit": "321 B"
     },
     {
       "path": "full.js",
-      "limit": "361 B"
+      "limit": "354 B"
     }
   ],
   "eslintConfig": {
@@ -64,7 +65,7 @@
     }
   },
   "lint-staged": {
-    "*.js": ["jest --coverage", "yarn lint", "size-limit"],
+    "*.js": ["yarn jest", "yarn lint", "size-limit"],
     "*.md": "yaspeller"
   },
   "husky": {
