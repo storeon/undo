@@ -1,6 +1,6 @@
 {
   "name": "@storeon/undo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Module for storeon which allows undoing or redoing the latest event",
   "repository": "storeon/undo",
   "author": "Ivan Menshykov <ivan.menshykov@gmail.com>",
