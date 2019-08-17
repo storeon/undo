@@ -1,22 +1,22 @@
-var createStore = require('storeon')
+let createStore = require('storeon')
 
-var undo = require('../')
-var full = require('../full')
-var undoable = full.undoable
-var UNDO = full.UNDO
-var REDO = full.REDO
-var createHistory = undo.createHistory
+let undo = require('../')
+let full = require('../full')
+let undoable = full.undoable
+let UNDO = full.UNDO
+let REDO = full.REDO
+let createHistory = undo.createHistory
 
-var store
-var counter
+let store
+let counter
 
-beforeEach(function () {
+beforeEach(() => {
   counter = function (s) {
-    s.on('@init', function () {
+    s.on('@init', () => {
       return { a: 0, b: 0 }
     })
 
-    s.on('counter/add', function (state) {
+    s.on('counter/add', state => {
       return {
         a: state.a + 1,
         b: state.b + 1
@@ -30,16 +30,16 @@ beforeEach(function () {
   ])
 })
 
-it('should throw the error', function () {
-  expect(function () {
+it('should throw the error', () => {
+  expect(() => {
     createHistory()
   }).toThrow()
 })
 
-it('should create separeted history for key', function () {
-  var history = createHistory(['a'])
+it('should create separeted history for key', () => {
+  let history = createHistory(['a'])
 
-  var str = createStore([
+  let str = createStore([
     counter,
     history.module
   ])
@@ -57,8 +57,8 @@ it('should create separeted history for key', function () {
   })
 })
 
-it('undo with separeted history should revert only provided key', function () {
-  var history = createHistory(['a'])
+it('undo with separeted history should revert only provided key', () => {
+  let history = createHistory(['a'])
 
   store = createStore([
     counter,
@@ -92,8 +92,8 @@ it('undo with separeted history should revert only provided key', function () {
   })
 })
 
-it('redo should update only provided key', function () {
-  var history = createHistory(['a'])
+it('redo should update only provided key', () => {
+  let history = createHistory(['a'])
 
   store = createStore([
     counter,
@@ -141,7 +141,7 @@ it('redo should update only provided key', function () {
   })
 })
 
-it('the state should be added to past array', function () {
+it('the state should be added to past array', () => {
   store.dispatch('counter/add')
 
   expect(store.get()).toEqual({
@@ -155,7 +155,7 @@ it('the state should be added to past array', function () {
   })
 })
 
-it('undo should revert state from past', function () {
+it('undo should revert state from past', () => {
   store.dispatch('counter/add')
   store.dispatch('counter/add')
 
@@ -183,7 +183,7 @@ it('undo should revert state from past', function () {
   })
 })
 
-it('redo should revert state from the future', function () {
+it('redo should revert state from the future', () => {
   store.dispatch('counter/add')
   store.dispatch('counter/add')
 
@@ -224,7 +224,7 @@ it('redo should revert state from the future', function () {
   })
 })
 
-it('redo should do nothing if future is empty', function () {
+it('redo should do nothing if future is empty', () => {
   store.dispatch('counter/add')
   store.dispatch('counter/add')
 
@@ -258,7 +258,7 @@ it('redo should do nothing if future is empty', function () {
   })
 })
 
-it('undo should do nothing if past is empty', function () {
+it('undo should do nothing if past is empty', () => {
   store.dispatch('counter/add')
   store.dispatch('counter/add')
 
