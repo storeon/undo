@@ -1,6 +1,14 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.2.4
+
+* Update dependencies
+
+## 0.2.3
+
+* Update dependencies
+
 ## 0.2.2
 
 * Fix new eslint styles for test files
