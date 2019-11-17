@@ -33,7 +33,7 @@ beforeEach(() => {
 it('should throw the error', () => {
   expect(() => {
     createHistory()
-  }).toThrow()
+  }).toThrow('The paths parameter should be an array: createHistory([])')
 })
 
 it('should create separeted history for key', () => {
