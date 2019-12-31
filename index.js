@@ -12,13 +12,13 @@ module.exports = {
       }
     }
 
-    var undo = Symbol('undo')
-    var redo = Symbol('redo')
+    var undo = Symbol('u')
+    var redo = Symbol('r')
 
     var key = 'undoable'
     if (paths.length > 0) {
-      undo = Symbol('undo_' + paths.join('_'))
-      redo = Symbol('redo_' + paths.join('_'))
+      undo = Symbol('u_' + paths.join('_'))
+      redo = Symbol('r_' + paths.join('_'))
 
       key += '_' + paths.join('_')
     }

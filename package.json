@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint *.js test/*.js test/demo/*.js",
     "size": "size-limit",
-    "jest": "NODE_ENV=development jest --coverage",
+    "jest": "NODE_ENV=development jest --coverage test/*.js",
     "spell": "yarn docs && yaspeller *.md",
     "docs": "documentation build *.js -f md -o api.md",
     "test": "yarn jest && yarn lint && size-limit && yarn spell",
@@ -43,11 +43,11 @@
   "size-limit": [
     {
       "path": "index.js",
-      "limit": "321 B"
+      "limit": "318 B"
     },
     {
       "path": "full.js",
-      "limit": "354 B"
+      "limit": "350 B"
     }
   ],
   "eslintConfig": {
