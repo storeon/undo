@@ -30,10 +30,18 @@ beforeEach(() => {
   ])
 })
 
-it('should throw the error', () => {
+it('should throw the help error in development mode', () => {
+  process.env.NODE_ENV = 'development'
   expect(() => {
     createHistory()
   }).toThrow('The paths parameter should be an array: createHistory([])')
+})
+
+it('should throw the error in production mode', () => {
+  process.env.NODE_ENV = 'production'
+  expect(() => {
+    createHistory()
+  }).toThrow('Cannot read property \'length\' of undefined')
 })
 
 it('should create separeted history for key', () => {

@@ -43,11 +43,11 @@
   "size-limit": [
     {
       "path": "index.js",
-      "limit": "318 B"
+      "limit": "322 B"
     },
     {
       "path": "full.js",
-      "limit": "350 B"
+      "limit": "355 B"
     }
   ],
   "eslintConfig": {
@@ -66,10 +66,14 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "(index|full).js": [
       "yarn jest",
       "yarn lint",
-      "size-limit"
+      "yarn size"
+    ],
+    "test/*.js": [
+      "yarn jest",
+      "yarn lint"
     ],
     "*.md": "yaspeller"
   },
