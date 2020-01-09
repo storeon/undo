@@ -28,6 +28,8 @@ dispatch(UNDO)
 
 ```
 npm install @storeon/undo
+# or
+yarn add @storeon/undo
 ```
 
 ## Usage
