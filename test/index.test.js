@@ -24,10 +24,7 @@ beforeEach(() => {
     })
   }
 
-  store = createStore([
-    counter,
-    undoable
-  ])
+  store = createStore([counter, undoable])
 })
 
 it('should throw the help error in development mode', () => {
@@ -41,16 +38,13 @@ it('should throw the error in production mode', () => {
   process.env.NODE_ENV = 'production'
   expect(() => {
     createHistory()
-  }).toThrow('Cannot read property \'length\' of undefined')
+  }).toThrow("Cannot read property 'length' of undefined")
 })
 
 it('should create separeted history for key', () => {
   let history = createHistory(['a'])
 
-  let str = createStore([
-    counter,
-    history.module
-  ])
+  let str = createStore([counter, history.module])
 
   str.dispatch('counter/add')
 
@@ -68,10 +62,7 @@ it('should create separeted history for key', () => {
 it('undo with separeted history should revert only provided key', () => {
   let history = createHistory(['a'])
 
-  store = createStore([
-    counter,
-    history.module
-  ])
+  store = createStore([counter, history.module])
 
   store.dispatch('counter/add')
   store.dispatch('counter/add')
@@ -103,10 +94,7 @@ it('undo with separeted history should revert only provided key', () => {
 it('redo should update only provided key', () => {
   let history = createHistory(['a'])
 
-  store = createStore([
-    counter,
-    history.module
-  ])
+  store = createStore([counter, history.module])
 
   store.dispatch('counter/add')
   store.dispatch('counter/add')
@@ -184,7 +172,10 @@ it('undo should revert state from past', () => {
     a: 0,
     b: 0,
     undoable: {
-      future: [{ a: 2, b: 2 }, { a: 1, b: 1 }],
+      future: [
+        { a: 2, b: 2 },
+        { a: 1, b: 1 }
+      ],
       past: [],
       present: { a: 0, b: 0 }
     }
@@ -202,7 +193,10 @@ it('redo should revert state from the future', () => {
     a: 0,
     b: 0,
     undoable: {
-      future: [{ a: 2, b: 2 }, { a: 1, b: 1 }],
+      future: [
+        { a: 2, b: 2 },
+        { a: 1, b: 1 }
+      ],
       past: [],
       present: { a: 0, b: 0 }
     }
@@ -226,7 +220,10 @@ it('redo should revert state from the future', () => {
     b: 2,
     undoable: {
       future: [],
-      past: [{ a: 0, b: 0 }, { a: 1, b: 1 }],
+      past: [
+        { a: 0, b: 0 },
+        { a: 1, b: 1 }
+      ],
       present: { a: 2, b: 2 }
     }
   })
@@ -243,7 +240,10 @@ it('redo should do nothing if future is empty', () => {
     a: 0,
     b: 0,
     undoable: {
-      future: [{ a: 2, b: 2 }, { a: 1, b: 1 }],
+      future: [
+        { a: 2, b: 2 },
+        { a: 1, b: 1 }
+      ],
       past: [],
       present: { a: 0, b: 0 }
     }
@@ -260,7 +260,10 @@ it('redo should do nothing if future is empty', () => {
     b: 2,
     undoable: {
       future: [],
-      past: [{ a: 0, b: 0 }, { a: 1, b: 1 }],
+      past: [
+        { a: 0, b: 0 },
+        { a: 1, b: 1 }
+      ],
       present: { a: 2, b: 2 }
     }
   })
@@ -275,7 +278,10 @@ it('undo should do nothing if past is empty', () => {
     b: 2,
     undoable: {
       future: [],
-      past: [{ a: 0, b: 0 }, { a: 1, b: 1 }],
+      past: [
+        { a: 0, b: 0 },
+        { a: 1, b: 1 }
+      ],
       present: { a: 2, b: 2 }
     }
   })
@@ -290,7 +296,10 @@ it('undo should do nothing if past is empty', () => {
     a: 0,
     b: 0,
     undoable: {
-      future: [{ a: 2, b: 2 }, { a: 1, b: 1 }],
+      future: [
+        { a: 2, b: 2 },
+        { a: 1, b: 1 }
+      ],
       past: [],
       present: { a: 0, b: 0 }
     }

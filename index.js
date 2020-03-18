@@ -4,18 +4,19 @@
  *    that will be store in history
  */
 module.exports = {
-  createHistory: function (paths) {
+  createHistory (paths) {
     if (process.env.NODE_ENV === 'development') {
       if (!paths) {
         throw new Error(
-          'The paths parameter should be an array: createHistory([])')
+          'The paths parameter should be an array: createHistory([])'
+        )
       }
     }
 
-    var undo = Symbol('u')
-    var redo = Symbol('r')
+    let undo = Symbol('u')
+    let redo = Symbol('r')
 
-    var key = 'undoable'
+    let key = 'undoable'
     if (paths.length > 0) {
       undo = Symbol('u_' + paths.join('_'))
       redo = Symbol('r_' + paths.join('_'))
@@ -24,54 +25,53 @@ module.exports = {
     }
 
     return {
-      module: function (store) {
-        var ignoreNext = false
-        store.on('@init', function (state) {
+      module (store) {
+        let ignoreNext = false
+        store.on('@init', state => {
           ignoreNext = true
-          var init = {}
-          init[key] = {
-            past: [],
-            present: filterState(paths, state),
-            future: []
+          return {
+            [key]: {
+              past: [],
+              present: filterState(paths, state),
+              future: []
+            }
           }
-          return init
         })
 
-        store.on('@changed', function (state) {
+        store.on('@changed', state => {
           if (ignoreNext) {
             ignoreNext = false
             return
           }
 
           ignoreNext = true
-          var undoable = state[key]
+          let undoable = state[key]
 
           delete state[key]
 
           state = filterState(paths, state)
-          var past = undoable.past
-          var present = undoable.present
+          let past = undoable.past
+          let present = undoable.present
 
-          var changed = {}
-          changed[key] = {
-            past: [].concat(past, [present]),
-            present: state,
-            future: []
+          return {
+            [key]: {
+              past: [].concat(past, [present]),
+              present: state,
+              future: []
+            }
           }
-
-          return changed
         })
 
-        store.on(undo, function (state) {
+        store.on(undo, state => {
           ignoreNext = true
 
-          var undoable = state[key]
+          let undoable = state[key]
           if (undoable.past.length === 0) return
           delete state[key]
 
           state = filterState(paths, state)
 
-          var before = undoable.past.pop()
+          let before = undoable.past.pop()
 
           before[key] = {
             present: Object.assign({}, before),
@@ -82,17 +82,17 @@ module.exports = {
           return before
         })
 
-        store.on(redo, function (state) {
+        store.on(redo, state => {
           ignoreNext = true
 
-          var undoable = state[key]
+          let undoable = state[key]
           if (undoable.future.length === 0) return
 
           delete state[key]
 
           state = filterState(paths, state)
 
-          var next = undoable.future.pop()
+          let next = undoable.future.pop()
 
           next[key] = {
             present: Object.assign({}, next),
@@ -114,8 +114,8 @@ function filterState (paths, state) {
     return state
   }
 
-  var filteredState = { }
-  paths.forEach(function (p) {
+  let filteredState = {}
+  paths.forEach(p => {
     filteredState[p] = state[p]
   })
 
