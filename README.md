@@ -5,7 +5,7 @@
 
 Tiny module for [Storeon] which is adding undo functionality to your state. This means that now you can undoing or redoing the events in the state.
 
-It is just 355 bytes module (it uses [Size Limit] to control the size) without any dependencies.
+It is just 348 bytes module (it uses [Size Limit] to control the size) without any dependencies.
 
 [Size Limit]: https://github.com/ai/size-limit
 [Storeon]: https://github.com/storeon/storeon
@@ -31,6 +31,10 @@ npm install @storeon/undo
 # or
 yarn add @storeon/undo
 ```
+
+If you need to support IE, you need to [compile `node_modules`] with Babel.
+
+[compile `node_modules`]: https://developer.epages.com/blog/coding/how-to-transpile-node-modules-with-babel-and-webpack-in-a-monorepo/
 
 ## Usage
 

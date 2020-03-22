@@ -115,9 +115,9 @@ function filterState (paths, state) {
   }
 
   let filteredState = {}
-  paths.forEach(p => {
+  for (let p of paths) {
     filteredState[p] = state[p]
-  })
+  }
 
   return filteredState
 }
