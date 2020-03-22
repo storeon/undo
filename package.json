@@ -37,6 +37,7 @@
     "parcel-bundler": "^1.12.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "size-limit": "^4.4.0",
     "storeon": "^0.9.8",
     "yaspeller": "^6.0.3"
   },
