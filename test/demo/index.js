@@ -2,11 +2,9 @@ let useCallback = require('react').useCallback
 let Fragment = require('react').Fragment
 let render = require('react-dom').render
 let h = require('react').createElement
-let StoreContext = require('storeon/react/context')
-let createStore = require('storeon')
-let devtools = require('storeon/devtools')
-let connect = require('storeon/react/connect')
-let logger = require('storeon/devtools/logger')
+let { StoreContext, connectStoreon } = require('storeon/react')
+let { createStoreon } = require('storeon')
+let { storeonLogger, storeonDevtools } = require('storeon/devtools')
 
 let undo = require('../../')
 
@@ -40,31 +38,31 @@ function Button (props) {
   return h('button', { onClick }, props.text)
 }
 
-let Tracker1 = connect('count1', props => {
+let Tracker1 = connectStoreon('count1', props => {
   return h(Tracker, {
     value: 'Counter 1: ' + props.count1
   })
 })
 
-let Tracker2 = connect('count2', props => {
+let Tracker2 = connectStoreon('count2', props => {
   return h(Tracker, {
     value: 'Counter 2: ' + props.count2
   })
 })
 
-let Button1 = connect(props => {
+let Button1 = connectStoreon(props => {
   return h(Button, {
     dispatch: props.dispatch, event: 'inc', text: 'Increase counter'
   })
 })
 
-let ButtonUndo = connect(props => {
+let ButtonUndo = connectStoreon(props => {
   return h(Button, {
     dispatch: props.dispatch, event: history.UNDO, text: 'UNDO'
   })
 })
 
-let ButtonRedo = connect(props => {
+let ButtonRedo = connectStoreon(props => {
   return h(Button, {
     dispatch: props.dispatch, event: history.REDO, text: 'REDO'
   })
@@ -89,7 +87,9 @@ function App () {
   )
 }
 
-let store = createStore([counter, history.module, logger, devtools()])
+let store = createStoreon(
+  [counter, history.module, storeonLogger, storeonDevtools()]
+)
 
 render(
   h(StoreContext.Provider, { value: store }, h(App)),

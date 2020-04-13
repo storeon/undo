@@ -1,11 +1,10 @@
-let createStore = require('storeon')
+let { createStoreon } = require('storeon')
 
-let undo = require('../')
+let { createHistory } = require('../')
 let full = require('../full')
 let undoable = full.undoable
 let UNDO = full.UNDO
 let REDO = full.REDO
-let createHistory = undo.createHistory
 
 let store
 let counter
@@ -24,7 +23,7 @@ beforeEach(() => {
     })
   }
 
-  store = createStore([counter, undoable])
+  store = createStoreon([counter, undoable])
 })
 
 it('should throw the help error in development mode', () => {
@@ -44,7 +43,7 @@ it('should throw the error in production mode', () => {
 it('should create separeted history for key', () => {
   let history = createHistory(['a'])
 
-  let str = createStore([counter, history.module])
+  let str = createStoreon([counter, history.module])
 
   str.dispatch('counter/add')
 
@@ -62,7 +61,7 @@ it('should create separeted history for key', () => {
 it('undo with separeted history should revert only provided key', () => {
   let history = createHistory(['a'])
 
-  store = createStore([counter, history.module])
+  store = createStoreon([counter, history.module])
 
   store.dispatch('counter/add')
   store.dispatch('counter/add')
@@ -94,7 +93,7 @@ it('undo with separeted history should revert only provided key', () => {
 it('redo should update only provided key', () => {
   let history = createHistory(['a'])
 
-  store = createStore([counter, history.module])
+  store = createStoreon([counter, history.module])
 
   store.dispatch('counter/add')
   store.dispatch('counter/add')

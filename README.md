@@ -5,7 +5,7 @@
 
 Tiny module for [Storeon] which is adding undo functionality to your state. This means that now you can undoing or redoing the events in the state.
 
-It is just 348 bytes module (it uses [Size Limit] to control the size) without any dependencies.
+It is just 356 bytes module (it uses [Size Limit] to control the size) without any dependencies.
 
 [Size Limit]: https://github.com/ai/size-limit
 [Storeon]: https://github.com/storeon/storeon
@@ -49,7 +49,7 @@ You can use this module in two ways:
 To using the undo/redo functionality you just need to add the `undoable` module to `createStore`.
 
 ```js
-import createStore from 'storeon'
+import { createStoreon } from 'storeon'
 import { undoable, UNDO, REDO } from '@storeon/undo/full'
 
 let counter = store => {
@@ -59,7 +59,7 @@ let counter = store => {
   store.on('dec', (state) => ({ counter: state.counter - 1}))
 }
 
-const store = createStore([
+const store = createStoreon([
   counter,
   undoable
  ])
@@ -92,7 +92,7 @@ const UndoRedo = () => {
 If you need history only for some particular keys in state you can use `createHistory` function:
 
 ```js
-import {createHistory} from '@storeon/undo'
+import { createHistory } from '@storeon/undo'
 
 // history will be collect only for key `a`
 const history = createHistory(['a'])

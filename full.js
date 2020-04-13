@@ -1,5 +1,5 @@
-let undo = require('.')
-let undoable = undo.createHistory([])
+let { createHistory } = require('.')
+let undoable = createHistory([])
 
 module.exports = {
   undoable: undoable.module,

@@ -3,109 +3,105 @@
  * @param {String[]} paths The keys of state object
  *    that will be store in history
  */
-module.exports = {
-  createHistory (paths) {
-    if (process.env.NODE_ENV === 'development') {
-      if (!paths) {
-        throw new Error(
-          'The paths parameter should be an array: createHistory([])'
-        )
-      }
-    }
+let createHistory = function (paths) {
+  if (process.env.NODE_ENV === 'development' && !paths) {
+    throw new Error(
+      'The paths parameter should be an array: createHistory([])'
+    )
+  }
 
-    let undo = Symbol('u')
-    let redo = Symbol('r')
+  let undo = Symbol('u')
+  let redo = Symbol('r')
 
-    let key = 'undoable'
-    if (paths.length > 0) {
-      undo = Symbol('u_' + paths.join('_'))
-      redo = Symbol('r_' + paths.join('_'))
+  let key = 'undoable'
+  if (paths.length > 0) {
+    undo = Symbol('u_' + paths.join('_'))
+    redo = Symbol('r_' + paths.join('_'))
 
-      key += '_' + paths.join('_')
-    }
+    key += '_' + paths.join('_')
+  }
 
-    return {
-      module (store) {
-        let ignoreNext = false
-        store.on('@init', state => {
-          ignoreNext = true
-          return {
-            [key]: {
-              past: [],
-              present: filterState(paths, state),
-              future: []
-            }
+  return {
+    module (store) {
+      let ignoreNext = false
+      store.on('@init', state => {
+        ignoreNext = true
+        return {
+          [key]: {
+            past: [],
+            present: filterState(paths, state),
+            future: []
           }
-        })
+        }
+      })
 
-        store.on('@changed', state => {
-          if (ignoreNext) {
-            ignoreNext = false
-            return
+      store.on('@changed', state => {
+        if (ignoreNext) {
+          ignoreNext = false
+          return
+        }
+
+        ignoreNext = true
+        let undoable = state[key]
+
+        delete state[key]
+
+        state = filterState(paths, state)
+        let past = undoable.past
+        let present = undoable.present
+
+        return {
+          [key]: {
+            past: [].concat(past, [present]),
+            present: state,
+            future: []
           }
+        }
+      })
 
-          ignoreNext = true
-          let undoable = state[key]
+      store.on(undo, state => {
+        ignoreNext = true
 
-          delete state[key]
+        let undoable = state[key]
+        if (undoable.past.length === 0) return
+        delete state[key]
 
-          state = filterState(paths, state)
-          let past = undoable.past
-          let present = undoable.present
+        state = filterState(paths, state)
 
-          return {
-            [key]: {
-              past: [].concat(past, [present]),
-              present: state,
-              future: []
-            }
-          }
-        })
+        let before = undoable.past.pop()
 
-        store.on(undo, state => {
-          ignoreNext = true
+        before[key] = {
+          present: Object.assign({}, before),
+          past: undoable.past,
+          future: [].concat(undoable.future, [state])
+        }
 
-          let undoable = state[key]
-          if (undoable.past.length === 0) return
-          delete state[key]
+        return before
+      })
 
-          state = filterState(paths, state)
+      store.on(redo, state => {
+        ignoreNext = true
 
-          let before = undoable.past.pop()
+        let undoable = state[key]
+        if (undoable.future.length === 0) return
 
-          before[key] = {
-            present: Object.assign({}, before),
-            past: undoable.past,
-            future: [].concat(undoable.future, [state])
-          }
+        delete state[key]
 
-          return before
-        })
+        state = filterState(paths, state)
 
-        store.on(redo, state => {
-          ignoreNext = true
+        let next = undoable.future.pop()
 
-          let undoable = state[key]
-          if (undoable.future.length === 0) return
+        next[key] = {
+          present: Object.assign({}, next),
+          past: [].concat(undoable.past, [state]),
+          future: undoable.future
+        }
 
-          delete state[key]
-
-          state = filterState(paths, state)
-
-          let next = undoable.future.pop()
-
-          next[key] = {
-            present: Object.assign({}, next),
-            past: [].concat(undoable.past, [state]),
-            future: undoable.future
-          }
-
-          return next
-        })
-      },
-      UNDO: undo,
-      REDO: redo
-    }
+        return next
+      })
+    },
+    UNDO: undo,
+    REDO: redo
   }
 }
 
@@ -121,3 +117,5 @@ function filterState (paths, state) {
 
   return filteredState
 }
+
+module.exports = { createHistory }
