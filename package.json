@@ -19,6 +19,7 @@
     "@size-limit/preset-small-lib": "^4.4.5",
     "clean-publish": "^1.1.7",
     "documentation": "^12.3.0",
+    "dual-publish": "^0.10.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-es5": "^1.5.0",
@@ -47,7 +48,7 @@
       "limit": "320 B"
     },
     {
-      "path": "full.js",
+      "path": "full/index.js",
       "limit": "356 B"
     }
   ],

@@ -1,4 +1,4 @@
-let { createHistory } = require('.')
+let { createHistory } = require('..')
 let undoable = createHistory([])
 
 module.exports = {
