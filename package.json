@@ -15,6 +15,7 @@
     "start": "parcel serve --cache-dir test/demo/.cache -d test/demo/dist test/demo/index.html --open"
   },
   "devDependencies": {
+    "@arkweid/lefthook": "^0.7.1",
     "@logux/eslint-config": "^36.1.2",
     "@size-limit/preset-small-lib": "^4.4.5",
     "clean-publish": "^1.1.7",
@@ -32,9 +33,7 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-unicorn": "^19.0.0",
-    "husky": "^4.2.5",
     "jest": "^25.4.0",
-    "lint-staged": "^10.1.7",
     "parcel-bundler": "^1.12.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -78,11 +77,6 @@
       "yarn lint"
     ],
     "*.md": "yaspeller"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "yaspeller": {
     "lang": "en",
