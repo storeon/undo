@@ -86,7 +86,8 @@
       "Versioning",
       "undoable",
       "createHistory",
-      "eslint"
+      "eslint",
+      "lefthook"
     ]
   }
 }
