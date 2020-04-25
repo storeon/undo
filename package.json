@@ -67,18 +67,6 @@
       }
     }
   },
-  "lint-staged": {
-    "(index|full).js": [
-      "yarn jest",
-      "yarn lint",
-      "yarn size"
-    ],
-    "test/*.js": [
-      "yarn jest",
-      "yarn lint"
-    ],
-    "*.md": "yaspeller"
-  },
   "yaspeller": {
     "lang": "en",
     "ignoreCapitalization": true,
