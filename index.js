@@ -10,16 +10,12 @@ let createHistory = function (paths) {
     )
   }
 
-  let undo = Symbol('u')
-  let redo = Symbol('r')
-
   let key = 'undoable'
   if (paths.length > 0) {
-    undo = Symbol('u_' + paths.join('_'))
-    redo = Symbol('r_' + paths.join('_'))
-
     key += '_' + paths.join('_')
   }
+  let undo = Symbol('u_' + key)
+  let redo = Symbol('r_' + key)
 
   return {
     module (store) {
