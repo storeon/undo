@@ -19,6 +19,7 @@
     "@logux/eslint-config": "^36.1.2",
     "@size-limit/preset-small-lib": "^4.4.5",
     "clean-publish": "^1.1.7",
+    "deep-freeze": "^0.0.1",
     "documentation": "^12.3.0",
     "dual-publish": "^0.10.1",
     "eslint": "^6.8.0",
@@ -44,11 +45,11 @@
   "size-limit": [
     {
       "path": "index.js",
-      "limit": "320 B"
+      "limit": "329 B"
     },
     {
       "path": "full/index.js",
-      "limit": "356 B"
+      "limit": "364 B"
     }
   ],
   "eslintConfig": {
