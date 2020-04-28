@@ -3,8 +3,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.6.0
 
-* Update the code to not mutate the state (by @rndr)
-* Create undo and redo symbols only once (by @rndr)
+* Update the code to not mutate the state (by https://github.com/rndr)
+* Create undo and redo symbols only once (by https://github.com/rndr)
 
 ## 0.5.1
 
