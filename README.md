@@ -5,7 +5,7 @@
 
 Tiny module for [Storeon] which is adding undo functionality to your state. This means that now you can undoing or redoing the events in the state.
 
-It is just 360 bytes module (it uses [Size Limit] to control the size) without any dependencies.
+It is just 375 bytes module (it uses [Size Limit] to control the size) without any dependencies.
 
 [Size Limit]: https://github.com/ai/size-limit
 [Storeon]: https://github.com/storeon/storeon
@@ -108,6 +108,28 @@ dispatch(UNDO)
 ```
 
 ![Example of history only for specific key](example_history.gif)
+
+### API
+
+#### createHistory(paths, config)
+
+##### paths parameter
+
+```js
+type paths = Array<String>
+```
+
+The keys of state object that will be stored in history
+
+##### config parameter
+
+```js
+type config.key = String
+```
+
+The default state key for storing history, when omitted:
+* if `paths` is not empty will be generated based on `paths` content
+* otherwise will default to `'undoable'`
 
 ## LICENSE
 
