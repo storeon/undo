@@ -1,3 +1,4 @@
+let deepFreeze = require('deep-freeze')
 let { createStoreon } = require('storeon')
 
 let { createHistory } = require('../')
@@ -7,9 +8,18 @@ let UNDO = full.UNDO
 let REDO = full.REDO
 
 let store
+let freezer
 let counter
 
 beforeEach(() => {
+  freezer = function (s) {
+    ['@init', '@dispatch', '@changed'].forEach(
+      event => s.on(event, state => {
+        deepFreeze(state)
+      })
+    )
+  }
+
   counter = function (s) {
     s.on('@init', () => {
       return { a: 0, b: 0 }
@@ -23,7 +33,7 @@ beforeEach(() => {
     })
   }
 
-  store = createStoreon([counter, undoable])
+  store = createStoreon([freezer, counter, undoable])
 })
 
 it('should throw the help error in development mode', () => {
@@ -43,7 +53,7 @@ it('should throw the error in production mode', () => {
 it('should create separeted history for key', () => {
   let history = createHistory(['a'])
 
-  let str = createStoreon([counter, history.module])
+  let str = createStoreon([freezer, counter, history.module])
 
   str.dispatch('counter/add')
 
@@ -61,7 +71,7 @@ it('should create separeted history for key', () => {
 it('undo with separeted history should revert only provided key', () => {
   let history = createHistory(['a'])
 
-  store = createStoreon([counter, history.module])
+  store = createStoreon([freezer, counter, history.module])
 
   store.dispatch('counter/add')
   store.dispatch('counter/add')
@@ -93,7 +103,7 @@ it('undo with separeted history should revert only provided key', () => {
 it('redo should update only provided key', () => {
   let history = createHistory(['a'])
 
-  store = createStoreon([counter, history.module])
+  store = createStoreon([freezer, counter, history.module])
 
   store.dispatch('counter/add')
   store.dispatch('counter/add')

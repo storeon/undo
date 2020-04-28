@@ -5,7 +5,7 @@
 
 Tiny module for [Storeon] which is adding undo functionality to your state. This means that now you can undoing or redoing the events in the state.
 
-It is just 356 bytes module (it uses [Size Limit] to control the size) without any dependencies.
+It is just 364 bytes module (it uses [Size Limit] to control the size) without any dependencies.
 
 [Size Limit]: https://github.com/ai/size-limit
 [Storeon]: https://github.com/storeon/storeon
