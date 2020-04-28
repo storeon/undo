@@ -1,6 +1,6 @@
 {
   "name": "@storeon/undo",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Module for storeon which allows undoing or redoing the latest event",
   "repository": "storeon/undo",
   "author": "Ivan Menshykov <ivan.menshykov@gmail.com>",
@@ -76,7 +76,8 @@
       "undoable",
       "createHistory",
       "eslint",
-      "lefthook"
+      "lefthook",
+      "rndr"
     ]
   }
 }
