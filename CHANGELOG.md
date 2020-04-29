@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.0
+
+* Provide ability to configure state key for history storage (by https://github.com/rndr)
+
 ## 0.6.0
 
 * Update the code to not mutate the state (by https://github.com/rndr)
