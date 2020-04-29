@@ -2,16 +2,21 @@
  * Storeon module to add undo and redo functionality
  * @param {String[]} paths The keys of state object
  *    that will be store in history
+ * @param {Object} config The config object
+ * @param {String} [config.key='undoable'] The default state key
+ *    for storing history (when omitted and `paths` is not empty
+ *    will be generated based on `paths` content)
  */
-let createHistory = function (paths) {
+let createHistory = function (paths, config) {
   if (process.env.NODE_ENV === 'development' && !paths) {
     throw new Error(
       'The paths parameter should be an array: createHistory([])'
     )
   }
+  config = config || {}
 
-  let key = 'undoable'
-  if (paths.length > 0) {
+  let key = config.key || 'undoable'
+  if (!config.key && paths.length > 0) {
     key += '_' + paths.join('_')
   }
   let undo = Symbol('u_' + key)

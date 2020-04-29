@@ -68,6 +68,42 @@ it('should create separeted history for key', () => {
   })
 })
 
+it('should use key provided in config when paths is empty', () => {
+  let history = createHistory([], { key: 'testKey' })
+
+  let str = createStoreon([freezer, counter, history.module])
+
+  str.dispatch('counter/add')
+
+  expect(str.get()).toEqual({
+    a: 1,
+    b: 1,
+    testKey: {
+      future: [],
+      past: [{ a: 0, b: 0 }],
+      present: { a: 1, b: 1 }
+    }
+  })
+})
+
+it('should use key provided in config when paths is not empty', () => {
+  let history = createHistory(['a'], { key: 'testKey' })
+
+  let str = createStoreon([freezer, counter, history.module])
+
+  str.dispatch('counter/add')
+
+  expect(str.get()).toEqual({
+    a: 1,
+    b: 1,
+    testKey: {
+      future: [],
+      past: [{ a: 0 }],
+      present: { a: 1 }
+    }
+  })
+})
+
 it('undo with separeted history should revert only provided key', () => {
   let history = createHistory(['a'])
 
