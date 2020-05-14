@@ -9,9 +9,7 @@
  */
 let createHistory = function (paths, config) {
   if (process.env.NODE_ENV === 'development' && !paths) {
-    throw new Error(
-      'The paths parameter should be an array: createHistory([])'
-    )
+    throw new Error('The paths parameter should be an array: createHistory([])')
   }
   config = config || {}
 
@@ -68,17 +66,13 @@ let createHistory = function (paths, config) {
         delete state[key]
 
         let before = undoable.past[undoable.past.length - 1]
-        return Object.assign(
-          {},
-          before,
-          {
-            [key]: {
-              present: before,
-              past: undoable.past.slice(0, -1),
-              future: [].concat(undoable.future, [state])
-            }
+        return Object.assign({}, before, {
+          [key]: {
+            present: before,
+            past: undoable.past.slice(0, -1),
+            future: [].concat(undoable.future, [state])
           }
-        )
+        })
       })
 
       store.on(redo, state => {
@@ -91,17 +85,13 @@ let createHistory = function (paths, config) {
         delete state[key]
 
         let next = undoable.future[undoable.future.length - 1]
-        return Object.assign(
-          {},
-          next,
-          {
-            [key]: {
-              present: next,
-              past: [].concat(undoable.past, [state]),
-              future: undoable.future.slice(0, -1)
-            }
+        return Object.assign({}, next, {
+          [key]: {
+            present: next,
+            past: [].concat(undoable.past, [state]),
+            future: undoable.future.slice(0, -1)
           }
-        )
+        })
       })
     },
     UNDO: undo,

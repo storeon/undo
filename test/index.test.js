@@ -13,8 +13,8 @@ let counter
 
 beforeEach(() => {
   freezer = function (s) {
-    ['@init', '@dispatch', '@changed'].forEach(
-      event => s.on(event, state => {
+    ;['@init', '@dispatch', '@changed'].forEach(event =>
+      s.on(event, state => {
         deepFreeze(state)
       })
     )

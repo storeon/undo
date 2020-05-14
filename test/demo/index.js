@@ -52,44 +52,52 @@ let Tracker2 = connectStoreon('count2', props => {
 
 let Button1 = connectStoreon(props => {
   return h(Button, {
-    dispatch: props.dispatch, event: 'inc', text: 'Increase counter'
+    dispatch: props.dispatch,
+    event: 'inc',
+    text: 'Increase counter'
   })
 })
 
 let ButtonUndo = connectStoreon(props => {
   return h(Button, {
-    dispatch: props.dispatch, event: history.UNDO, text: 'UNDO'
+    dispatch: props.dispatch,
+    event: history.UNDO,
+    text: 'UNDO'
   })
 })
 
 let ButtonRedo = connectStoreon(props => {
   return h(Button, {
-    dispatch: props.dispatch, event: history.REDO, text: 'REDO'
+    dispatch: props.dispatch,
+    event: history.REDO,
+    text: 'REDO'
   })
 })
 
 function App () {
-  return h(Fragment, null,
+  return h(
+    Fragment,
+    null,
     h('div', null, 'Only `counter 1` has a history, and can be undo/redo'),
-    h('div', { className: 'container' },
+    h(
+      'div',
+      { className: 'container' },
       h('div', { className: 'tracker history' }, 'With history'),
       h('div', { className: 'tracker no_history' }, 'Without history'),
       h(Tracker1),
       h(Tracker2)
     ),
-    h('div', { className: 'buttons' },
-      h(Button1)
-    ),
-    h('div', { className: 'buttons' },
-      h(ButtonUndo),
-      h(ButtonRedo)
-    )
+    h('div', { className: 'buttons' }, h(Button1)),
+    h('div', { className: 'buttons' }, h(ButtonUndo), h(ButtonRedo))
   )
 }
 
-let store = createStoreon(
-  [counter, history.module, storeonLogger, storeonDevtools()]
-)
+let store = createStoreon([
+  counter,
+  history.module,
+  storeonLogger,
+  storeonDevtools()
+])
 
 render(
   h(StoreContext.Provider, { value: store }, h(App)),
