@@ -1,5 +1,5 @@
-let { createHistory } = require('..')
-let undoable = createHistory([])
+const { createHistory } = require('..')
+const undoable = createHistory([])
 
 module.exports = {
   undoable: undoable.module,

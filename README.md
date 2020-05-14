@@ -5,21 +5,21 @@
 
 Tiny module for [Storeon] which is adding undo functionality to your state. This means that now you can undoing or redoing the events in the state.
 
-It is just 375 bytes module (it uses [Size Limit] to control the size) without any dependencies.
+It is just 377 bytes module (it uses [Size Limit] to control the size) without any dependencies.
 
-[Size Limit]: https://github.com/ai/size-limit
-[Storeon]: https://github.com/storeon/storeon
+[size limit]: https://github.com/ai/size-limit
+[storeon]: https://github.com/storeon/storeon
 
 ```js
-import { undoable, UNDO, REDO } from '@storeon/undo/full'
+import { undoable, UNDO, REDO } from "@storeon/undo/full";
 
 const store = createStore([
   /* all your modules */
-  undoable
- ])
+  undoable,
+]);
 
 // now you can use UNDO and REDO with dispatch
-dispatch(UNDO)
+dispatch(UNDO);
 ```
 
 ![Example of use the undo/redo functionality](example.gif)
@@ -43,48 +43,48 @@ You can use this module in two ways:
 - store history for all state
 - store history only for specific keys
 
-
 ### Store history for all state
 
 To using the undo/redo functionality you just need to add the `undoable` module to `createStore`.
 
 ```js
-import { createStoreon } from 'storeon'
-import { undoable, UNDO, REDO } from '@storeon/undo/full'
+import { createStoreon } from "storeon";
+import { undoable, UNDO, REDO } from "@storeon/undo/full";
 
-let counter = store => {
-  store.on('@init', () => ({ counter: 0 }))
+let counter = (store) => {
+  store.on("@init", () => ({ counter: 0 }));
 
-  store.on('inc', (state) => ({ counter: state.counter + 1}))
-  store.on('dec', (state) => ({ counter: state.counter - 1}))
-}
+  store.on("inc", (state) => ({ counter: state.counter + 1 }));
+  store.on("dec", (state) => ({ counter: state.counter - 1 }));
+};
 
-const store = createStoreon([
-  counter,
-  undoable
- ])
+const store = createStoreon([counter, undoable]);
 ```
 
 And now you can use the functions `undo` and `redo` to manipulate the history.
 
 ```js
 const Counter = () => {
-  const { dispatch, counter } = useStoreon('counter')
-  return <React.Fragment>
-    <div>{counter}</div>
-    <button onClick={() => dispatch('inc')}>Inc</button>
-    <button onClick={() => dispatch('dec')}>Dec</button>
-  </React.Fragment>
-}
+  const { dispatch, counter } = useStoreon("counter");
+  return (
+    <React.Fragment>
+      <div>{counter}</div>
+      <button onClick={() => dispatch("inc")}>Inc</button>
+      <button onClick={() => dispatch("dec")}>Dec</button>
+    </React.Fragment>
+  );
+};
 
 const UndoRedo = () => {
-  const { dispatch } = useStoreon()
+  const { dispatch } = useStoreon();
 
-  return <>
-    <button onClick={() => dispatch(UNDO)}>Undo</button>
-    <button onClick={() => dispatch(REDO)}>Redo</button>
-  </>
-}
+  return (
+    <>
+      <button onClick={() => dispatch(UNDO)}>Undo</button>
+      <button onClick={() => dispatch(REDO)}>Redo</button>
+    </>
+  );
+};
 ```
 
 ### Store history only for specific keys
@@ -92,19 +92,19 @@ const UndoRedo = () => {
 If you need history only for some particular keys in state you can use `createHistory` function:
 
 ```js
-import { createHistory } from '@storeon/undo'
+import { createHistory } from "@storeon/undo";
 
 // history will be collect only for key `a`
-const history = createHistory(['a'])
-const { UNDO, REDO } = history
+const history = createHistory(["a"]);
+const { UNDO, REDO } = history;
 
 createStore([
   /* all your modules */
-  history.module
-])
+  history.module,
+]);
 
 // to change the history use the UNDO and REDO from `history` object
-dispatch(UNDO)
+dispatch(UNDO);
 ```
 
 ![Example of history only for specific key](example_history.gif)
@@ -116,7 +116,7 @@ dispatch(UNDO)
 ##### paths parameter
 
 ```js
-type paths = Array<String>
+type paths = Array<String>;
 ```
 
 The keys of state object that will be stored in history
@@ -128,8 +128,9 @@ type config.key = String
 ```
 
 The default state key for storing history, when omitted:
-* if `paths` is not empty will be generated based on `paths` content
-* otherwise will default to `'undoable'`
+
+- if `paths` is not empty will be generated based on `paths` content
+- otherwise will default to `'undoable'`
 
 ## LICENSE
 
@@ -138,4 +139,3 @@ MIT
 ## Acknowledgments
 
 This module based on [Implementing Undo History recipe](https://redux.js.org/recipes/implementing-undo-history) article.
-

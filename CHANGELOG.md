@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.0
+
+* Update dependencies and apply new linter rules
+
 ## 0.7.0
 
 * Provide ability to configure state key for history storage (by https://github.com/rndr)

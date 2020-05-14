@@ -1,12 +1,12 @@
 {
   "name": "@storeon/undo",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Module for storeon which allows undoing or redoing the latest event",
   "repository": "storeon/undo",
   "author": "Ivan Menshykov <ivan.menshykov@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint *.js test/*.js test/demo/*.js",
+    "lint": "eslint *.js full/*.js test/*.js test/demo/*.js",
     "size": "size-limit",
     "jest": "NODE_ENV=development jest --coverage test/*.js",
     "spell": "yarn docs && yaspeller *.md",
@@ -21,7 +21,7 @@
     "clean-publish": "^1.1.7",
     "deep-freeze": "^0.0.1",
     "documentation": "^13.0.0",
-    "dual-publish": "^0.10.2",
+    "dual-publish": "^0.9.0",
     "eslint": "^7.0.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-es5": "^1.5.0",
@@ -50,7 +50,7 @@
     },
     {
       "path": "full/index.js",
-      "limit": "375 B"
+      "limit": "377 B"
     }
   ],
   "eslintConfig": {
@@ -79,7 +79,8 @@
       "eslint",
       "lefthook",
       "rndr",
-      "github"
+      "github",
+      "linter"
     ]
   }
 }
