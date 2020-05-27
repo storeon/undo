@@ -11,3 +11,5 @@ test/
 .travis.yml
 example.gif
 example_history.gif
+
+lefthook.yaml
