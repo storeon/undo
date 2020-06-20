@@ -1,6 +1,14 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.0
+
+* Update storeon to newest version and update dependencies
+
+## 0.9.0
+
+* Update dependencies
+
 ## 0.8.0
 
 * Update dependencies and apply new linter rules
