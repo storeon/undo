@@ -35,10 +35,26 @@ let createHistory = function (paths, config) {
         }
       })
 
-      store.on('@changed', state => {
+      store.on('@changed', (state, changes) => {
         if (ignoreNext) {
           ignoreNext = false
           return
+        }
+
+        if (paths.length) {
+          const changedKeys = Object.keys(changes)
+          let inPaths = false
+
+          for (let changedKey of changedKeys) {
+            if (paths.indexOf(changedKey) > -1) {
+              inPaths = true
+              break
+            }
+          }
+
+          if (!inPaths) {
+            return
+          }
         }
 
         ignoreNext = true
