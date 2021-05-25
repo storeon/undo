@@ -42,11 +42,11 @@ let createHistory = function (paths, config) {
         }
 
         if (paths.length) {
-          const changedKeys = Object.keys(changes)
+          let changedKeys = Object.keys(changes)
           let inPaths = false
 
           for (let changedKey of changedKeys) {
-            if (paths.indexOf(changedKey) > -1) {
+            if (paths.includes(changedKey)) {
               inPaths = true
               break
             }
