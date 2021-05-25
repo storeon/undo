@@ -367,7 +367,7 @@ it('should not cause a redundant insertion into past key if change is done outsi
   expect(str.get()).toEqual({
     a: 0,
     b: 1,
-    testKey: {
+    undoable_a: {
       future: [],
       past: [],
       present: { a: 0 }
