@@ -31,6 +31,12 @@ beforeEach(() => {
         b: state.b + 1
       }
     })
+
+    s.on('counter/add/b-only', state => {
+      return {
+        b: state.b + 1
+      }
+    })
   }
 
   store = createStoreon([freezer, counter, undoable])
@@ -50,7 +56,7 @@ it('should throw the error in production mode', () => {
   }).toThrow("Cannot read property 'length' of undefined")
 })
 
-it('should create separeted history for key', () => {
+it('should create separated history for key', () => {
   let history = createHistory(['a'])
 
   let str = createStoreon([freezer, counter, history.module])
@@ -104,7 +110,7 @@ it('should use key provided in config when paths is not empty', () => {
   })
 })
 
-it('undo with separeted history should revert only provided key', () => {
+it('undo with separated history should revert only provided key', () => {
   let history = createHistory(['a'])
 
   store = createStoreon([freezer, counter, history.module])
@@ -347,6 +353,24 @@ it('undo should do nothing if past is empty', () => {
       ],
       past: [],
       present: { a: 0, b: 0 }
+    }
+  })
+})
+
+it('should not cause a redundant insertion into past key if change is done outside paths', () => {
+  let history = createHistory(['a'])
+
+  let str = createStoreon([freezer, counter, history.module])
+
+  str.dispatch('counter/add/b-only')
+
+  expect(str.get()).toEqual({
+    a: 0,
+    b: 1,
+    undoable_a: {
+      future: [],
+      past: [],
+      present: { a: 0 }
     }
   })
 })
