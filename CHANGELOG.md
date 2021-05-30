@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.0
+
+* Updated '@changed' listener (by https://github.com/ayhandoslu)
+
 ## 1.0.0
 
 * Update storeon to newest version and update dependencies
